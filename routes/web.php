@@ -7,6 +7,13 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
+
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard', function () {
@@ -26,6 +33,8 @@ if (file_exists(__DIR__ . '/auth.php')) {
 }
 
 Route::get('exercise1', function () {
-    return view('view1'); });
+    return view('view1');
+});
 Route::get('introduction', function () {
-    return view('introduction'); });
+    return view('introduction');
+});
