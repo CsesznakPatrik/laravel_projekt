@@ -62,12 +62,61 @@
 		</div>
 	</article>
 
+	<!-- Contact -->
 	<article id="contact" class="wrapper style4">
 		<div class="container medium">
 			<header>
-				<h2>Írjon nekünk üzenetet!</h2>
-				<p>A kapcsolat űrlap segítségével üzenetet küldhet az oldal tulajdonosának.</p>
+				<h2>Lépjen kapcsolatba velünk!</h2>
+				<p>Írjon nekünk üzenetet a lenti űrlap kitöltésével.</p>
 			</header>
+
+			@if(session('success'))
+				<div
+					style="background: green; color: white; padding: 15px; margin-bottom: 20px; text-align: center; border-radius: 5px;">
+					{{ session('success') }}
+				</div>
+			@endif
+
+			@if ($errors->any())
+				<div style="background: red; color: white; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+					<ul>
+						@foreach ($errors->all() as $error)
+							<li>{{ $error }}</li>
+						@endforeach
+					</ul>
+				</div>
+			@endif
+
+			<div class="row">
+				<div class="col-12">
+					<form method="POST" action="{{ route('contact.store') }}">
+						@csrf
+						<div class="row">
+							<div class="col-6 col-12-small">
+								<input type="text" name="name" id="name" placeholder="Név" value="{{ old('name') }}" />
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="email" name="email" id="email" placeholder="E-mail cím"
+									value="{{ old('email') }}" />
+							</div>
+							<div class="col-12">
+								<input type="text" name="subject" id="subject" placeholder="Tárgy"
+									value="{{ old('subject') }}" />
+							</div>
+							<div class="col-12">
+								<textarea name="message" id="message"
+									placeholder="Üzenet...">{{ old('message') }}</textarea>
+							</div>
+							<div class="col-12">
+								<ul class="actions">
+									<li><input type="submit" value="Üzenet küldése" /></li>
+									<li><input type="reset" value="Űrlap törlése" class="alt" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</article>
 
