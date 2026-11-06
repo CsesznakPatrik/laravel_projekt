@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\UserMessageController;
+use App\Http\Controllers\Auth\SimpleAuthController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('user');
     })->name("user");
 
+    Route::get('/user', [UserMessageController::class, 'index'])->name('user');
     Route::get('admin', [AdminController::class, 'adminPage']);
 });
 
@@ -42,3 +45,11 @@ Route::get('exercise1', function () {
 Route::get('introduction', function () {
     return view('introduction');
 });
+
+Route::get('/register', [SimpleAuthController::class, 'showRegister'])->name('register');
+Route::post('/register', [SimpleAuthController::class, 'register']);
+
+Route::get('/login', [SimpleAuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [SimpleAuthController::class, 'login'])->name('login.submit');
+
+Route::post('/logout', [SimpleAuthController::class, 'logout'])->name('logout');

@@ -1,22 +1,45 @@
 @extends('layouts.app')
 
-@section('title', 'Főoldal - Miniport')
+@section('title', 'Regisztráció')
 
 @section('content')
+    <article id="register" class="wrapper style4" style="padding: 4rem 0;">
+        <div class="container medium">
+            <header>
+                <h2>Regisztráció</h2>
+                <p>Hozzon létre egy új fiókot a rendszerben.</p>
+            </header>
 
-<article id="top" class="wrapper style1">
-    <div class="container">
-        <div class="row">
-            <div class="col-4 col-5-large col-12-medium">
-                <span class="image fit"><img src="{{ asset('images/pic00.jpg') }}" alt="" /></span>
-            </div>
-            <div class="col-8 col-7-large col-12-medium">
-                <header>
-                    <h1>Üdvözöljük a <strong>Laravel</strong> beadandónkban!</h1>
-                </header>
-                <p>Ez egy szerver oldali webalkalmazás, amelyet a Miniport reszponzív témával valósítottunk meg.</p>
-                <a href="#work" class="button large scrolly">Adatbázis megtekintése</a>
-            </div>
+            @if ($errors->any())
+                <div style="background: red; color: white; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <div class="row">
+                    <div class="col-12" style="margin-bottom: 20px;">
+                        <input type="text" name="name" placeholder="Felhasználónév" value="{{ old('name') }}" required />
+                    </div>
+                    <div class="col-12" style="margin-bottom: 20px;">
+                        <input type="email" name="email" placeholder="E-mail cím (1 e-mail / 1 fiók)"
+                            value="{{ old('email') }}" required />
+                    </div>
+                    <div class="col-12" style="margin-bottom: 20px;">
+                        <input type="password" name="password" placeholder="Jelszó" required />
+                    </div>
+                    <div class="col-12">
+                        <ul class="actions">
+                            <li><input type="submit" value="Regisztráció" /></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
         </div>
-    </div>
-</article>
+    </article>
+@endsection
